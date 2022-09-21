@@ -12,16 +12,52 @@ terraform {
 
 provider "aws" {
   region     = "us-east-1"
-  access_key = "ASIAZ3DCZEO2G2Y7GZVS"
-  secret_key = "d5Rgvubav5Qe1K3dL2dy+mX/ZawTccUK6eRZbrEX"
-  token      = "FwoGZXIvYXdzEOX//////////wEaDPFUwmUgluPi3I9uFCLJARgapc/wz4fc1UGEIqFqZuilxXaNtg6QNc9RiI5SaaupYsyIj4oN6ojRL84GCUj+j3VnUdevgUOzp3riGiqTl+GesR/O2758VQgjMtLdyDucNS8cwkncQlbCTn3ChZI0Zqdqg09/N6eLYCTFzfhSyGoRiCT+tLqFELDEtWVhUl1yj3NdY1FrPhVNv0S1HRmSwHqFe+SHfzNSxqpWDk37IBf/AC32ZVmKkOZcqHHs68sDdJdVzMr+KTv4Yo+AxzzUPrDW5yfpab9vRiim1q2ZBjIt5Her/4oQ0AqBSUuyuU9NGk1XBMsH0+qbbriNElNiS6TpmHbHfUB7ZLznT8ij"
+  access_key = "ASIAZ3DCZEO2BT35IN7M"
+  secret_key = "zU14c9n230Ia/1lNFWxHls9d8WR7as/EhaawzL3X"
+  token      = "FwoGZXIvYXdzEOj//////////wEaDNEbYcWVcsCPy9PLvyLJAcZJwalRyOp+TCd7NuelE4nHdQ6Rl++L/Ibt35AKBmSjPbsG9GocL377MzZxwsErKAjQy5LV1UdYxOtZu5A/AJ0levWbQ1D1oNX1cpgG/v4RMzPAvWOB9JXW8RIcEFEtdt0Jrw7Gk9ZIgOfurLC+S00pYwc1JbsSdlVfpOPseYpvi/bUwAle0vEh29PnEisyZAC0A+ULt08nH/AVTtATNGNevxCMvKRYZRdO8paFRFBOKVC24o0uvdbBznBN+hUdNOG89NzDFZETwSjmq66ZBjItyYSYdOiVzfO6So8uVD3mZS3vn1xpbAjoEspJHpujMOQL2QiuLFW1qKDXy4Ao"
 }
 
-resource "aws_instance" "app_server" {
+resource "aws_instance" "instance1" {
   ami           = "ami-0149b2da6ceec4bb0"
-  instance_type = "t2.micro"
+  instance_type = "m4.large"
 
   tags = {
-    Name = "ExampleAppServerInstance"
+    Name = "M4"
+  }
+}
+
+resource "aws_instance" "instance2" {
+  ami           = "ami-0149b2da6ceec4bb0"
+  instance_type = "m4.large"
+
+  tags = {
+    Name = "M4"
+  }
+}
+
+resource "aws_instance" "instance3" {
+  ami           = "ami-0149b2da6ceec4bb0"
+  instance_type = "m4.large"
+
+  tags = {
+    Name = "M4"
+  }
+}
+
+resource "aws_instance" "instance4" {
+  ami           = "ami-0149b2da6ceec4bb0"
+  instance_type = "m4.large"
+
+  tags = {
+    Name = "M4"
+  }
+}
+
+resource "aws_instance" "instance5" {
+  ami           = "ami-0149b2da6ceec4bb0"
+  instance_type = "m4.large"
+
+  tags = {
+    Name = "M4"
   }
 }
