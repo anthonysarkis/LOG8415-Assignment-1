@@ -61,3 +61,48 @@ resource "aws_instance" "instance5" {
     Name = "M4"
   }
 }
+
+resource "aws_instance" "instance6" {
+  ami           = "ami-0149b2da6ceec4bb0"
+  instance_type = "t2.xlarge"
+
+  tags = {
+    Name = "T2"
+  }
+}
+
+resource "aws_instance" "instance7" {
+  ami           = "ami-0149b2da6ceec4bb0"
+  instance_type = "t2.xlarge"
+
+  tags = {
+    Name = "T2"
+  }
+}
+
+resource "aws_instance" "instance8" {
+  ami           = "ami-0149b2da6ceec4bb0"
+  instance_type = "t2.xlarge"
+
+  tags = {
+    Name = "T2"
+  }
+}
+
+resource "aws_instance" "instance9" {
+  ami           = "ami-0149b2da6ceec4bb0"
+  instance_type = "t2.xlarge"
+
+  tags = {
+    Name = "T2"
+  }
+}
+
+resource "aws_instance" "instance10" {
+  ami           = "ami-0149b2da6ceec4bb0"
+  instance_type = "t2.xlarge"
+
+  tags = {
+    Name = "T2"
+  }
+}
