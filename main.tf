@@ -17,91 +17,121 @@ provider "aws" {
   token      = "FwoGZXIvYXdzEBoaDIPjgZSN8hhEskto9CLJAQ9H7DUUzFgvE/b8S+RV65wR2dLbqqw5bBEcBTDdsYJhhe9845p+dQ+kDbKRtiExoTGcsgZbYqny1wROCzBRTbutNzZvGr+gsHjCZTin0sNgOvcPtwGI9PbN14UF037UC8VXkD4lstdp5pU8womtftvyRVz4KJy4dlLoZqA+0VMtbniR0m2cCvxY7HXlmFqJTBh/qdjfX0iFhCqJVyx6/Zy5f+UjymZNJdJp+bZh8CLgF3lNcl9MwK1E5Oith54iCCweNS98owbbNCjYmbmZBjIt6pjyEjoqjC2iKV+mILGX5qnNOfrObxgpizdzpDMPBbuD2mlkaNCVvnGg5tny"
 }
 
+resource "aws_security_group" "security_gp" {
+  vpc_id = aws_vpc.my_vpc.id
+
+  ingress {
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
+
+  egress {
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
+}
+
 resource "aws_instance" "instance1" {
-  ami           = "ami-0149b2da6ceec4bb0"
-  instance_type = "m4.large"
-  subnet_id     = aws_subnet.public_1.id
+  ami                    = "ami-0149b2da6ceec4bb0"
+  instance_type          = "m4.large"
+  subnet_id              = aws_subnet.public_1.id
+  vpc_security_group_ids = [aws_security_group.security_gp.id]
   tags = {
     Name = "M4"
   }
 }
 
 resource "aws_instance" "instance2" {
-  ami           = "ami-0149b2da6ceec4bb0"
-  instance_type = "m4.large"
-  subnet_id     = aws_subnet.public_1.id
+  ami                    = "ami-0149b2da6ceec4bb0"
+  instance_type          = "m4.large"
+  subnet_id              = aws_subnet.public_1.id
+  vpc_security_group_ids = [aws_security_group.security_gp.id]
   tags = {
     Name = "M4"
   }
 }
 
 resource "aws_instance" "instance3" {
-  ami           = "ami-0149b2da6ceec4bb0"
-  instance_type = "m4.large"
-  subnet_id     = aws_subnet.public_1.id
+  ami                    = "ami-0149b2da6ceec4bb0"
+  instance_type          = "m4.large"
+  subnet_id              = aws_subnet.public_1.id
+  vpc_security_group_ids = [aws_security_group.security_gp.id]
   tags = {
     Name = "M4"
   }
 }
 
 resource "aws_instance" "instance4" {
-  ami           = "ami-0149b2da6ceec4bb0"
-  instance_type = "m4.large"
-  subnet_id     = aws_subnet.public_1.id
+  ami                    = "ami-0149b2da6ceec4bb0"
+  instance_type          = "m4.large"
+  subnet_id              = aws_subnet.public_1.id
+  vpc_security_group_ids = [aws_security_group.security_gp.id]
   tags = {
     Name = "M4"
   }
 }
 
 resource "aws_instance" "instance5" {
-  ami           = "ami-0149b2da6ceec4bb0"
-  instance_type = "m4.large"
-  subnet_id     = aws_subnet.public_1.id
+  ami                    = "ami-0149b2da6ceec4bb0"
+  instance_type          = "m4.large"
+  subnet_id              = aws_subnet.public_1.id
+  vpc_security_group_ids = [aws_security_group.security_gp.id]
   tags = {
     Name = "M4"
   }
 }
 
 resource "aws_instance" "instance6" {
-  ami           = "ami-0149b2da6ceec4bb0"
-  instance_type = "t2.large"
-  subnet_id     = aws_subnet.public_1.id
+  ami                    = "ami-0149b2da6ceec4bb0"
+  instance_type          = "t2.large"
+  subnet_id              = aws_subnet.public_1.id
+  vpc_security_group_ids = [aws_security_group.security_gp.id]
   tags = {
     Name = "T2"
   }
 }
 
 resource "aws_instance" "instance7" {
-  ami           = "ami-0149b2da6ceec4bb0"
-  instance_type = "t2.large"
-  subnet_id     = aws_subnet.public_1.id
+  ami                    = "ami-0149b2da6ceec4bb0"
+  instance_type          = "t2.large"
+  subnet_id              = aws_subnet.public_1.id
+  vpc_security_group_ids = [aws_security_group.security_gp.id]
   tags = {
     Name = "T2"
   }
 }
 
 resource "aws_instance" "instance8" {
-  ami           = "ami-0149b2da6ceec4bb0"
-  instance_type = "t2.large"
-  subnet_id     = aws_subnet.public_1.id
+  ami                    = "ami-0149b2da6ceec4bb0"
+  instance_type          = "t2.large"
+  subnet_id              = aws_subnet.public_1.id
+  vpc_security_group_ids = [aws_security_group.security_gp.id]
   tags = {
     Name = "T2"
   }
 }
 
 resource "aws_instance" "instance9" {
-  ami           = "ami-0149b2da6ceec4bb0"
-  instance_type = "t2.large"
-  subnet_id     = aws_subnet.public_1.id
+  ami                    = "ami-0149b2da6ceec4bb0"
+  instance_type          = "t2.large"
+  subnet_id              = aws_subnet.public_1.id
+  vpc_security_group_ids = [aws_security_group.security_gp.id]
   tags = {
     Name = "T2"
   }
 }
 
 resource "aws_instance" "instance10" {
-  ami           = "ami-0149b2da6ceec4bb0"
-  instance_type = "t2.large"
-  subnet_id     = aws_subnet.public_1.id
+  ami                    = "ami-0149b2da6ceec4bb0"
+  instance_type          = "t2.large"
+  subnet_id              = aws_subnet.public_1.id
+  vpc_security_group_ids = [aws_security_group.security_gp.id]
   tags = {
     Name = "T2"
   }
@@ -140,6 +170,7 @@ resource "aws_lb" "load_balancer" {
   internal           = false
   load_balancer_type = "application"
   subnets            = [aws_subnet.public_1.id, aws_subnet.public_2.id]
+  security_groups    = [aws_security_group.security_gp.id]
 
   enable_deletion_protection = true
 
