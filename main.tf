@@ -12,9 +12,9 @@ terraform {
 
 provider "aws" {
   region     = "us-east-1"
-  access_key = "ASIAZ3DCZEO2BT35IN7M"
-  secret_key = "zU14c9n230Ia/1lNFWxHls9d8WR7as/EhaawzL3X"
-  token      = "FwoGZXIvYXdzEOj//////////wEaDNEbYcWVcsCPy9PLvyLJAcZJwalRyOp+TCd7NuelE4nHdQ6Rl++L/Ibt35AKBmSjPbsG9GocL377MzZxwsErKAjQy5LV1UdYxOtZu5A/AJ0levWbQ1D1oNX1cpgG/v4RMzPAvWOB9JXW8RIcEFEtdt0Jrw7Gk9ZIgOfurLC+S00pYwc1JbsSdlVfpOPseYpvi/bUwAle0vEh29PnEisyZAC0A+ULt08nH/AVTtATNGNevxCMvKRYZRdO8paFRFBOKVC24o0uvdbBznBN+hUdNOG89NzDFZETwSjmq66ZBjItyYSYdOiVzfO6So8uVD3mZS3vn1xpbAjoEspJHpujMOQL2QiuLFW1qKDXy4Ao"
+  access_key = "ASIAZ3DCZEO2EZPJDXHM"
+  secret_key = "aXwrP6RvuR/Jv8o5NrjHjQZUpj/czepKxDfCTuGZ"
+  token      = "FwoGZXIvYXdzEBoaDIPjgZSN8hhEskto9CLJAQ9H7DUUzFgvE/b8S+RV65wR2dLbqqw5bBEcBTDdsYJhhe9845p+dQ+kDbKRtiExoTGcsgZbYqny1wROCzBRTbutNzZvGr+gsHjCZTin0sNgOvcPtwGI9PbN14UF037UC8VXkD4lstdp5pU8womtftvyRVz4KJy4dlLoZqA+0VMtbniR0m2cCvxY7HXlmFqJTBh/qdjfX0iFhCqJVyx6/Zy5f+UjymZNJdJp+bZh8CLgF3lNcl9MwK1E5Oith54iCCweNS98owbbNCjYmbmZBjIt6pjyEjoqjC2iKV+mILGX5qnNOfrObxgpizdzpDMPBbuD2mlkaNCVvnGg5tny"
 }
 
 resource "aws_instance" "instance1" {
@@ -64,7 +64,7 @@ resource "aws_instance" "instance5" {
 
 resource "aws_instance" "instance6" {
   ami           = "ami-0149b2da6ceec4bb0"
-  instance_type = "t2.micro"
+  instance_type = "t2.large"
   subnet_id     = aws_subnet.public_1.id
   tags = {
     Name = "T2"
@@ -73,7 +73,7 @@ resource "aws_instance" "instance6" {
 
 resource "aws_instance" "instance7" {
   ami           = "ami-0149b2da6ceec4bb0"
-  instance_type = "t2.micro"
+  instance_type = "t2.large"
   subnet_id     = aws_subnet.public_1.id
   tags = {
     Name = "T2"
@@ -82,7 +82,7 @@ resource "aws_instance" "instance7" {
 
 resource "aws_instance" "instance8" {
   ami           = "ami-0149b2da6ceec4bb0"
-  instance_type = "t2.micro"
+  instance_type = "t2.large"
   subnet_id     = aws_subnet.public_1.id
   tags = {
     Name = "T2"
@@ -91,7 +91,7 @@ resource "aws_instance" "instance8" {
 
 resource "aws_instance" "instance9" {
   ami           = "ami-0149b2da6ceec4bb0"
-  instance_type = "t2.micro"
+  instance_type = "t2.large"
   subnet_id     = aws_subnet.public_1.id
   tags = {
     Name = "T2"
@@ -100,7 +100,7 @@ resource "aws_instance" "instance9" {
 
 resource "aws_instance" "instance10" {
   ami           = "ami-0149b2da6ceec4bb0"
-  instance_type = "t2.micro"
+  instance_type = "t2.large"
   subnet_id     = aws_subnet.public_1.id
   tags = {
     Name = "T2"
