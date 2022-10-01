@@ -1,0 +1,9 @@
+# syntax=docker/dockerfile:1
+FROM python:3.8-slim-buster
+
+COPY requirements-requests.txt requirements-requests.txt
+RUN pip3 install -r requirements-requests.txt
+
+COPY ec2_requests_slim.py ec2_requests_slim.py
+
+CMD [ "python3", "ec2_requests_slim.py"]
