@@ -18,7 +18,7 @@ provider "aws" {
 }
 
 resource "aws_security_group" "security_gp" {
-  vpc_id = "vpc-0c6fdbc545563b869"
+  vpc_id = data.aws_vpc.default.id
 
   ingress {
     from_port        = 0
@@ -35,6 +35,10 @@ resource "aws_security_group" "security_gp" {
     cidr_blocks      = ["0.0.0.0/0"]
     ipv6_cidr_blocks = ["::/0"]
   }
+}
+
+data "aws_vpc" "default" {
+  default = true
 }
 
 resource "aws_instance" "instance1" {
@@ -139,7 +143,7 @@ resource "aws_instance" "instance9" {
 data "aws_subnets" "all" {
   filter {
     name   = "vpc-id"
-    values = ["vpc-0c6fdbc545563b869"]
+    values = [data.aws_vpc.default.id]
   }
 }
 
@@ -153,14 +157,14 @@ resource "aws_alb_target_group" "M4" {
   name     = "M4-instances"
   port     = 80
   protocol = "HTTP"
-  vpc_id   = "vpc-0c6fdbc545563b869"
+  vpc_id   = data.aws_vpc.default.id
 }
 
 resource "aws_alb_target_group" "T2" {
   name     = "T2-instances"
   port     = 80
   protocol = "HTTP"
-  vpc_id   = "vpc-0c6fdbc545563b869"
+  vpc_id   = data.aws_vpc.default.id
 }
 
 
