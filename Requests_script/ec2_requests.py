@@ -1,4 +1,5 @@
 import requests
+import threading
 import time
 import os
 
@@ -22,5 +23,13 @@ if __name__ == '__main__':
     url = "http://" + os.environ['url']
     headers = {"content-type": "application/json"}
 
-    thread1_requests(url, headers)
-    thread2_requests(url, headers)
+    requests1 = threading.Thread(
+        target=thread1_requests, args=(url + "/cluster1", headers))
+    requests2 = threading.Thread(
+        target=thread2_requests, args=(url + "/cluster2", headers))
+
+    requests1.start()
+    requests2.start()
+
+    requests1.join()
+    requests2.join()
