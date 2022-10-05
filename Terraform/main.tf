@@ -134,59 +134,17 @@ resource "aws_alb_listener_rule" "T2_rule" {
   }
 }
 
-resource "aws_alb_target_group_attachment" "M4_attachment_1" {
+resource "aws_alb_target_group_attachment" "M4_attachments" {
+  count = 5
   target_group_arn = aws_alb_target_group.M4.arn
-  target_id        = aws_instance.instances_m4[0].id
+  target_id        = aws_instance.instances_m4[count.index].id
   port             = 80
 }
 
-resource "aws_alb_target_group_attachment" "M4_attachment_2" {
-  target_group_arn = aws_alb_target_group.M4.arn
-  target_id        = aws_instance.instances_m4[1].id
-  port             = 80
-}
-
-resource "aws_alb_target_group_attachment" "M4_attachment_3" {
-  target_group_arn = aws_alb_target_group.M4.arn
-  target_id        = aws_instance.instances_m4[2].id
-  port             = 80
-
-}
-
-resource "aws_alb_target_group_attachment" "M4_attachment_4" {
-  target_group_arn = aws_alb_target_group.M4.arn
-  target_id        = aws_instance.instances_m4[3].id
-  port             = 80
-
-}
-
-resource "aws_alb_target_group_attachment" "M4_attachment_5" {
-  target_group_arn = aws_alb_target_group.M4.arn
-  target_id        = aws_instance.instances_m4[4].id
-  port             = 80
-}
-
-resource "aws_alb_target_group_attachment" "T2_attachment_1" {
+resource "aws_alb_target_group_attachment" "T2_attachments" {
+  count = 4
   target_group_arn = aws_alb_target_group.T2.arn
-  target_id        = aws_instance.instances_t2[0].id
-  port             = 80
-}
-
-resource "aws_alb_target_group_attachment" "T2_attachment_2" {
-  target_group_arn = aws_alb_target_group.T2.arn
-  target_id        = aws_instance.instances_t2[1].id
-  port             = 80
-}
-
-resource "aws_alb_target_group_attachment" "T2_attachment_3" {
-  target_group_arn = aws_alb_target_group.T2.arn
-  target_id        = aws_instance.instances_t2[2].id
-  port             = 80
-}
-
-resource "aws_alb_target_group_attachment" "T2_attachment_4" {
-  target_group_arn = aws_alb_target_group.T2.arn
-  target_id        = aws_instance.instances_t2[3].id
+  target_id        = aws_instance.instances_t2[count.index].id
   port             = 80
 }
 
