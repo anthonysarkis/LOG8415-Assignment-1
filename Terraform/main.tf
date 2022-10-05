@@ -41,100 +41,25 @@ data "aws_vpc" "default" {
   default = true
 }
 
-resource "aws_instance" "instance1" {
+resource "aws_instance" "instances_m4" {
   ami                    = "ami-0149b2da6ceec4bb0"
   instance_type          = "m4.large"
   vpc_security_group_ids = [aws_security_group.security_gp.id]
   availability_zone      = "us-east-1c"
   user_data              = file("userdata.sh")
+  count = 5
   tags = {
     Name = "M4"
   }
 }
 
-resource "aws_instance" "instance2" {
-  ami                    = "ami-0149b2da6ceec4bb0"
-  instance_type          = "m4.large"
-  vpc_security_group_ids = [aws_security_group.security_gp.id]
-  availability_zone      = "us-east-1d"
-  user_data              = file("userdata.sh")
-  tags = {
-    Name = "M4"
-  }
-}
-
-resource "aws_instance" "instance3" {
-  ami                    = "ami-0149b2da6ceec4bb0"
-  instance_type          = "m4.large"
-  vpc_security_group_ids = [aws_security_group.security_gp.id]
-  availability_zone      = "us-east-1c"
-  user_data              = file("userdata.sh")
-  tags = {
-    Name = "M4"
-  }
-}
-
-resource "aws_instance" "instance4" {
-  ami                    = "ami-0149b2da6ceec4bb0"
-  instance_type          = "m4.large"
-  vpc_security_group_ids = [aws_security_group.security_gp.id]
-  availability_zone      = "us-east-1d"
-  user_data              = file("userdata.sh")
-  tags = {
-    Name = "M4"
-  }
-}
-
-resource "aws_instance" "instance5" {
-  ami                    = "ami-0149b2da6ceec4bb0"
-  instance_type          = "m4.large"
-  vpc_security_group_ids = [aws_security_group.security_gp.id]
-  availability_zone      = "us-east-1c"
-  user_data              = file("userdata.sh")
-  tags = {
-    Name = "M4"
-  }
-}
-
-resource "aws_instance" "instance6" {
+resource "aws_instance" "instances_t2" {
   ami                    = "ami-0149b2da6ceec4bb0"
   instance_type          = "t2.large"
   vpc_security_group_ids = [aws_security_group.security_gp.id]
   availability_zone      = "us-east-1d"
   user_data              = file("userdata.sh")
-  tags = {
-    Name = "T2"
-  }
-}
-
-resource "aws_instance" "instance7" {
-  ami                    = "ami-0149b2da6ceec4bb0"
-  instance_type          = "t2.large"
-  vpc_security_group_ids = [aws_security_group.security_gp.id]
-  availability_zone      = "us-east-1d"
-  user_data              = file("userdata.sh")
-  tags = {
-    Name = "T2"
-  }
-}
-
-resource "aws_instance" "instance8" {
-  ami                    = "ami-0149b2da6ceec4bb0"
-  instance_type          = "t2.large"
-  vpc_security_group_ids = [aws_security_group.security_gp.id]
-  availability_zone      = "us-east-1c"
-  user_data              = file("userdata.sh")
-  tags = {
-    Name = "T2"
-  }
-}
-
-resource "aws_instance" "instance9" {
-  ami                    = "ami-0149b2da6ceec4bb0"
-  instance_type          = "t2.large"
-  vpc_security_group_ids = [aws_security_group.security_gp.id]
-  availability_zone      = "us-east-1d"
-  user_data              = file("userdata.sh")
+  count = 4
   tags = {
     Name = "T2"
   }
@@ -211,57 +136,57 @@ resource "aws_alb_listener_rule" "T2_rule" {
 
 resource "aws_alb_target_group_attachment" "M4_attachment_1" {
   target_group_arn = aws_alb_target_group.M4.arn
-  target_id        = aws_instance.instance1.id
+  target_id        = aws_instance.instances_m4[0].id
   port             = 80
 }
 
 resource "aws_alb_target_group_attachment" "M4_attachment_2" {
   target_group_arn = aws_alb_target_group.M4.arn
-  target_id        = aws_instance.instance2.id
+  target_id        = aws_instance.instances_m4[1].id
   port             = 80
 }
 
 resource "aws_alb_target_group_attachment" "M4_attachment_3" {
   target_group_arn = aws_alb_target_group.M4.arn
-  target_id        = aws_instance.instance3.id
+  target_id        = aws_instance.instances_m4[2].id
   port             = 80
 
 }
 
 resource "aws_alb_target_group_attachment" "M4_attachment_4" {
   target_group_arn = aws_alb_target_group.M4.arn
-  target_id        = aws_instance.instance4.id
+  target_id        = aws_instance.instances_m4[3].id
   port             = 80
 
 }
 
 resource "aws_alb_target_group_attachment" "M4_attachment_5" {
   target_group_arn = aws_alb_target_group.M4.arn
-  target_id        = aws_instance.instance5.id
+  target_id        = aws_instance.instances_m4[4].id
   port             = 80
 }
 
 resource "aws_alb_target_group_attachment" "T2_attachment_1" {
   target_group_arn = aws_alb_target_group.T2.arn
-  target_id        = aws_instance.instance6.id
+  target_id        = aws_instance.instances_t2[0].id
   port             = 80
 }
 
 resource "aws_alb_target_group_attachment" "T2_attachment_2" {
   target_group_arn = aws_alb_target_group.T2.arn
-  target_id        = aws_instance.instance7.id
+  target_id        = aws_instance.instances_t2[1].id
   port             = 80
 }
 
 resource "aws_alb_target_group_attachment" "T2_attachment_3" {
   target_group_arn = aws_alb_target_group.T2.arn
-  target_id        = aws_instance.instance8.id
+  target_id        = aws_instance.instances_t2[2].id
   port             = 80
 }
 
 resource "aws_alb_target_group_attachment" "T2_attachment_4" {
   target_group_arn = aws_alb_target_group.T2.arn
-  target_id        = aws_instance.instance9.id
+  target_id        = aws_instance.instances_t2[3].id
   port             = 80
 }
 
