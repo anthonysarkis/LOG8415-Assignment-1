@@ -12,9 +12,9 @@ terraform {
 
 provider "aws" {
   region     = "us-east-1"
-  access_key = "ASIAT3EXCLIVDRAP3K7J"
-  secret_key = "E8DAJUi74Qc7ZokXKLHyjCxgYp1G6LOJbMKyftcC"
-  token      = "FwoGZXIvYXdzEDAaDA+7EGAoV74f3kbUBCLCAUD0YFtup1yKHTdVB6HlXOBRAGNKoYvfB20W8wzDuSoMEM3RdgnN/H4YXDjaXDBtJ7rKbsAvg3gTbW/dWnrdzDcvPA6JyxyVNZuCys1syYsElIJ0TiOGIIZh68LFRkzyt9ssqcX4ZNeWmsW8+H+uyRshP8GdCr1B9RmFYwSdRK9FFzK3y4mLNM86GS95ze63lh6r2O+wcQmk/9rOuip9BkLB/v3zmceiUtxUa8OX66HNZHJJh+0GS2+eMIHZTJWTL8LNKLGi9pkGMi0xrDM1T3WAWZL6To0obHQao1ssPMPIbG6aRkWKnbK8fommlO4MLDmP3cV3guE="
+  access_key = "ASIAT3EXCLIVBHEZEWNI"
+  secret_key = "xrbyh6IwkvgbC3bM7QNvLLEXHz5eHT2+Rku+r9VP"
+  token      = "FwoGZXIvYXdzENT//////////wEaDP+Mkrykyu3AISDCuyLCAQH47p9PUCIsZKrv5zjWGqNkOOacz6gs1BD7LCiB5UaZ/wU7yvCq3EygdCcmyCbjVE9uW32LhdKguBMLypkcInGUQkJVUMrl8BEfj3VgKJHjvYrf9332A6SPc2IVHkODIUNDyKsMrm3N1R5fV6sII8ZXJhTbtRi3jzCW58zVgsy894rmUSKoW/f8j3i93V+9yliqHINsES5o/rILyJcdjAUKfa5DFBxmRclEiKNza/tACLVoYpfhn3ZCpfwCcMUmtCTpKKGR4pkGMi10qAydEcUWXLTIxngpwv4V3w1WuR3CPEYrCUxBuSvGq9jUbzCp7ccuZATQRa8="
 }
 
 resource "aws_security_group" "security_gp" {
@@ -41,100 +41,25 @@ data "aws_vpc" "default" {
   default = true
 }
 
-resource "aws_instance" "instance1" {
+resource "aws_instance" "instances_m4" {
   ami                    = "ami-0149b2da6ceec4bb0"
   instance_type          = "m4.large"
   vpc_security_group_ids = [aws_security_group.security_gp.id]
   availability_zone      = "us-east-1c"
   user_data              = file("userdata.sh")
+  count = 5
   tags = {
     Name = "M4"
   }
 }
 
-resource "aws_instance" "instance2" {
-  ami                    = "ami-0149b2da6ceec4bb0"
-  instance_type          = "m4.large"
-  vpc_security_group_ids = [aws_security_group.security_gp.id]
-  availability_zone      = "us-east-1d"
-  user_data              = file("userdata.sh")
-  tags = {
-    Name = "M4"
-  }
-}
-
-resource "aws_instance" "instance3" {
-  ami                    = "ami-0149b2da6ceec4bb0"
-  instance_type          = "m4.large"
-  vpc_security_group_ids = [aws_security_group.security_gp.id]
-  availability_zone      = "us-east-1c"
-  user_data              = file("userdata.sh")
-  tags = {
-    Name = "M4"
-  }
-}
-
-resource "aws_instance" "instance4" {
-  ami                    = "ami-0149b2da6ceec4bb0"
-  instance_type          = "m4.large"
-  vpc_security_group_ids = [aws_security_group.security_gp.id]
-  availability_zone      = "us-east-1d"
-  user_data              = file("userdata.sh")
-  tags = {
-    Name = "M4"
-  }
-}
-
-resource "aws_instance" "instance5" {
-  ami                    = "ami-0149b2da6ceec4bb0"
-  instance_type          = "m4.large"
-  vpc_security_group_ids = [aws_security_group.security_gp.id]
-  availability_zone      = "us-east-1c"
-  user_data              = file("userdata.sh")
-  tags = {
-    Name = "M4"
-  }
-}
-
-resource "aws_instance" "instance6" {
+resource "aws_instance" "instances_t2" {
   ami                    = "ami-0149b2da6ceec4bb0"
   instance_type          = "t2.large"
   vpc_security_group_ids = [aws_security_group.security_gp.id]
   availability_zone      = "us-east-1d"
   user_data              = file("userdata.sh")
-  tags = {
-    Name = "T2"
-  }
-}
-
-resource "aws_instance" "instance7" {
-  ami                    = "ami-0149b2da6ceec4bb0"
-  instance_type          = "t2.large"
-  vpc_security_group_ids = [aws_security_group.security_gp.id]
-  availability_zone      = "us-east-1d"
-  user_data              = file("userdata.sh")
-  tags = {
-    Name = "T2"
-  }
-}
-
-resource "aws_instance" "instance8" {
-  ami                    = "ami-0149b2da6ceec4bb0"
-  instance_type          = "t2.large"
-  vpc_security_group_ids = [aws_security_group.security_gp.id]
-  availability_zone      = "us-east-1c"
-  user_data              = file("userdata.sh")
-  tags = {
-    Name = "T2"
-  }
-}
-
-resource "aws_instance" "instance9" {
-  ami                    = "ami-0149b2da6ceec4bb0"
-  instance_type          = "t2.large"
-  vpc_security_group_ids = [aws_security_group.security_gp.id]
-  availability_zone      = "us-east-1d"
-  user_data              = file("userdata.sh")
+  count = 4
   tags = {
     Name = "T2"
   }
@@ -209,59 +134,17 @@ resource "aws_alb_listener_rule" "T2_rule" {
   }
 }
 
-resource "aws_alb_target_group_attachment" "M4_attachment_1" {
+resource "aws_alb_target_group_attachment" "M4_attachments" {
+  count = length(aws_instance.instances_m4)
   target_group_arn = aws_alb_target_group.M4.arn
-  target_id        = aws_instance.instance1.id
+  target_id        = aws_instance.instances_m4[count.index].id
   port             = 80
 }
 
-resource "aws_alb_target_group_attachment" "M4_attachment_2" {
-  target_group_arn = aws_alb_target_group.M4.arn
-  target_id        = aws_instance.instance2.id
-  port             = 80
-}
-
-resource "aws_alb_target_group_attachment" "M4_attachment_3" {
-  target_group_arn = aws_alb_target_group.M4.arn
-  target_id        = aws_instance.instance3.id
-  port             = 80
-
-}
-
-resource "aws_alb_target_group_attachment" "M4_attachment_4" {
-  target_group_arn = aws_alb_target_group.M4.arn
-  target_id        = aws_instance.instance4.id
-  port             = 80
-
-}
-
-resource "aws_alb_target_group_attachment" "M4_attachment_5" {
-  target_group_arn = aws_alb_target_group.M4.arn
-  target_id        = aws_instance.instance5.id
-  port             = 80
-}
-
-resource "aws_alb_target_group_attachment" "T2_attachment_1" {
+resource "aws_alb_target_group_attachment" "T2_attachments" {
+  count = length(aws_instance.instances_t2)
   target_group_arn = aws_alb_target_group.T2.arn
-  target_id        = aws_instance.instance6.id
-  port             = 80
-}
-
-resource "aws_alb_target_group_attachment" "T2_attachment_2" {
-  target_group_arn = aws_alb_target_group.T2.arn
-  target_id        = aws_instance.instance7.id
-  port             = 80
-}
-
-resource "aws_alb_target_group_attachment" "T2_attachment_3" {
-  target_group_arn = aws_alb_target_group.T2.arn
-  target_id        = aws_instance.instance8.id
-  port             = 80
-}
-
-resource "aws_alb_target_group_attachment" "T2_attachment_4" {
-  target_group_arn = aws_alb_target_group.T2.arn
-  target_id        = aws_instance.instance9.id
+  target_id        = aws_instance.instances_t2[count.index].id
   port             = 80
 }
 
