@@ -9,7 +9,7 @@ import os
 def thread1_requests(url, headers):
     print("Start of thread 1")
 
-    for i in range(11):
+    for i in range(10):
         r = requests.get(url, headers=headers)
         print("Thread1 #", i, ":", r.status_code, r.text, "to cluster 1")
 
@@ -19,14 +19,14 @@ def thread1_requests(url, headers):
 def thread2_requests(url, headers):
     print("Start of thread 2")
 
-    for i in range(6):
+    for i in range(5):
         r = requests.get(url, headers=headers)
         print("Thread2:", i, ":", r.status_code, r.text, "to cluster 2")
 
     print("Delay 10 seconds")
     time.sleep(10)
 
-    for i in range(11):
+    for i in range(10):
         r = requests.get(url, headers=headers)
         print("Thread2 #", i, ":", r.status_code, r.text, "to cluster 2")
     
@@ -34,7 +34,7 @@ def thread2_requests(url, headers):
 
 
 if __name__ == '__main__':
-    url = "http://" + os.environ['url']
+    url = "http://" + "load-balancer-2033728256.us-east-1.elb.amazonaws.com" # os.environ['url']
     headers = {"content-type": "application/json"}
 
     r1 = threading.Thread(target=thread1_requests, args=(url + "/cluster1", headers))
@@ -50,12 +50,12 @@ if __name__ == '__main__':
     print("End of first wave")
     print()
 
-    if os.environ['invert']:
-        r1 = threading.Thread(target=thread1_requests, args=(url + "/cluster2", headers))
-        r2 = threading.Thread(target=thread2_requests, args=(url + "/cluster1", headers))
+    # if os.environ['invert']:
+    #     r1 = threading.Thread(target=thread1_requests, args=(url + "/cluster2", headers))
+    #     r2 = threading.Thread(target=thread2_requests, args=(url + "/cluster1", headers))
 
-        r1.start()
-        r2.start()
+    #     r1.start()
+    #     r2.start()
 
-        r1.join()
-        r2.join()
+    #     r1.join()
+    #     r2.join()

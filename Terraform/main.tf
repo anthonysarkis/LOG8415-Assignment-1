@@ -12,9 +12,9 @@ terraform {
 
 provider "aws" {
   region     = "us-east-1"
-  access_key = "ASIAT3EXCLIVBHEZEWNI"
-  secret_key = "xrbyh6IwkvgbC3bM7QNvLLEXHz5eHT2+Rku+r9VP"
-  token      = "FwoGZXIvYXdzENT//////////wEaDP+Mkrykyu3AISDCuyLCAQH47p9PUCIsZKrv5zjWGqNkOOacz6gs1BD7LCiB5UaZ/wU7yvCq3EygdCcmyCbjVE9uW32LhdKguBMLypkcInGUQkJVUMrl8BEfj3VgKJHjvYrf9332A6SPc2IVHkODIUNDyKsMrm3N1R5fV6sII8ZXJhTbtRi3jzCW58zVgsy894rmUSKoW/f8j3i93V+9yliqHINsES5o/rILyJcdjAUKfa5DFBxmRclEiKNza/tACLVoYpfhn3ZCpfwCcMUmtCTpKKGR4pkGMi10qAydEcUWXLTIxngpwv4V3w1WuR3CPEYrCUxBuSvGq9jUbzCp7ccuZATQRa8="
+  access_key = "ASIAT3EXCLIVDRAP3K7J"
+  secret_key = "E8DAJUi74Qc7ZokXKLHyjCxgYp1G6LOJbMKyftcC"
+  token      = "FwoGZXIvYXdzEDAaDA+7EGAoV74f3kbUBCLCAUD0YFtup1yKHTdVB6HlXOBRAGNKoYvfB20W8wzDuSoMEM3RdgnN/H4YXDjaXDBtJ7rKbsAvg3gTbW/dWnrdzDcvPA6JyxyVNZuCys1syYsElIJ0TiOGIIZh68LFRkzyt9ssqcX4ZNeWmsW8+H+uyRshP8GdCr1B9RmFYwSdRK9FFzK3y4mLNM86GS95ze63lh6r2O+wcQmk/9rOuip9BkLB/v3zmceiUtxUa8OX66HNZHJJh+0GS2+eMIHZTJWTL8LNKLGi9pkGMi0xrDM1T3WAWZL6To0obHQao1ssPMPIbG6aRkWKnbK8fommlO4MLDmP3cV3guE="
 }
 
 resource "aws_security_group" "security_gp" {
@@ -268,4 +268,19 @@ resource "aws_alb_target_group_attachment" "T2_attachment_4" {
 output "alb_dns_name" {
   description = "The Application Load Balancer DNS name"
   value       = aws_alb.load_balancer.*.dns_name[0]
+}
+
+output "load_balancer_arn_suffix" {
+  description = "The Application Load Balancer ARN"
+  value       = aws_alb.load_balancer.arn_suffix
+}
+
+output "M4_group_arn_suffix" {
+  description = "M4 group arn suffix"
+  value       = aws_alb_target_group.M4.arn_suffix
+}
+
+output "T2_group_arn_suffix" {
+  description = "T2 group arn suffix"
+  value       = aws_alb_target_group.T2.arn_suffix
 }
