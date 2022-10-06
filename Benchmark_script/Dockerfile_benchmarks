@@ -1,0 +1,9 @@
+# syntax=docker/dockerfile:1
+FROM python:3.8-slim-buster
+
+COPY requirements-benchmarks.txt requirements-benchmarks.txt
+RUN pip3 install -r requirements-benchmarks.txt
+
+COPY ec2_benchmarks.py ec2_benchmarks.py
+
+CMD ["python3", "ec2_benchmarks.py"]
