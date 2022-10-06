@@ -135,14 +135,14 @@ resource "aws_alb_listener_rule" "T2_rule" {
 }
 
 resource "aws_alb_target_group_attachment" "M4_attachments" {
-  count = 5
+  count = length(aws_instance.instances_m4)
   target_group_arn = aws_alb_target_group.M4.arn
   target_id        = aws_instance.instances_m4[count.index].id
   port             = 80
 }
 
 resource "aws_alb_target_group_attachment" "T2_attachments" {
-  count = 4
+  count = length(aws_instance.instances_t2)
   target_group_arn = aws_alb_target_group.T2.arn
   target_id        = aws_instance.instances_t2[count.index].id
   port             = 80
