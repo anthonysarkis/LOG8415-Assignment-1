@@ -9,7 +9,7 @@ import os
 def thread1_requests(url, headers):
     print("Start of thread 1")
 
-    for i in range(11):
+    for i in range(10):
         r = requests.get(url, headers=headers)
         print("Thread1 #", i, ":", r.status_code, r.text, "to cluster 1")
 
@@ -19,14 +19,14 @@ def thread1_requests(url, headers):
 def thread2_requests(url, headers):
     print("Start of thread 2")
 
-    for i in range(6):
+    for i in range(5):
         r = requests.get(url, headers=headers)
         print("Thread2:", i, ":", r.status_code, r.text, "to cluster 2")
 
     print("Delay 10 seconds")
     time.sleep(10)
 
-    for i in range(11):
+    for i in range(10):
         r = requests.get(url, headers=headers)
         print("Thread2 #", i, ":", r.status_code, r.text, "to cluster 2")
     
@@ -34,6 +34,8 @@ def thread2_requests(url, headers):
 
 
 if __name__ == '__main__':
+    time.sleep(30)
+
     url = "http://" + os.environ['url']
     headers = {"content-type": "application/json"}
 

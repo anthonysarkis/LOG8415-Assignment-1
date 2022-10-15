@@ -20,8 +20,9 @@ def thread2_requests(url, headers):
         requests.get(url, headers=headers)
     
 
-
 if __name__ == '__main__':
+    time.sleep(30)
+
     url = "http://" + os.environ['url']
     headers = {"content-type": "application/json"}
 
