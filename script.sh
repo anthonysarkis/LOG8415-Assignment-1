@@ -28,9 +28,9 @@ cd ..
 # Send Requests
 ################################
 
-docker pull wayr/ec2_requests_slim:latest
+docker pull wayr/ec2_requests:latest
 
-docker run -e url="$url" -e invert=False  wayr/ec2_requests_slim:latest
+docker run -e url="$url" -e invert=False  wayr/ec2_requests:latest
 
 ################################
 # Get Benchmark
