@@ -1,13 +1,3 @@
-# docker image build -f Dockerfile_benchmarks -t ec2_benchmarks .
-# docker run -e M4="i-1,i-2,i-3" -e T2="i-1,i-2,i-3" -e load_balancer="app/load-balancer/dfd7de50da537297" -e cluster1="targetgroup/M4-instances/d9cca333fc82aa43" -e cluster2="targetgroup/T2-instances/1c4d5351a9b4c048" ec2_benchmarks
-# docker run -e M4="i-085dd8a17d3dc4e23" -e T2="i-01d73f88f64dc235f" -e load_balancer="app/load-balancer/dfd7de50da537297" -e cluster1="targetgroup/M4-instances/d9cca333fc82aa43" -e cluster2="targetgroup/T2-instances/1c4d5351a9b4c048" ec2_benchmarks
-# docker run \
-# -e M4="i-085dd8a17d3dc4e23,i-07e7e50b21e71fa00,i-02bc697b26af185b6,i-0b25584b9b392d6b6,i-0fcadd0991e694051" \
-# -e T2="i-01d73f88f64dc235f,i-027d5a4e5aa29d276,i-04a41a2b1d8e253a0,i-063353a2865953686" \ 
-# -e load_balancer="app/load-balancer/dfd7de50da537297" \
-# -e cluster1="targetgroup/M4-instances/d9cca333fc82aa43" \
-# -e cluster2="targetgroup/T2-instances/1c4d5351a9b4c048" \
-# ec2_benchmarks
 import time
 import boto3
 import os
@@ -72,169 +62,14 @@ def get_metric_data(metric, targetGroup1ARN, targetGroup2ARN, loadBalancer):
                 }
             },
         ],
-        StartTime=datetime.utcnow() - timedelta(minutes=115),
+        StartTime=datetime.utcnow() - timedelta(minutes=15),
         EndTime=datetime.utcnow() + timedelta(minutes=15)
     )
 
     return (response, average)
 
-
-def get_req_count(lb_name):
-    count = 0
-    response = client.get_metric_statistics(
-        Namespace="AWS/ApplicationELB",
-        MetricName="RequestCount",
-        Dimensions=[
-            {
-                "Name": "LoadBalancer",
-                "Value": lb_name
-            },
-        ],
-        StartTime=datetime.utcnow() - timedelta(minutes=1005),
-        EndTime=datetime.utcnow() + timedelta(minutes=15),
-        Period=86460,
-        Statistics=[
-            "Sum",
-        ]
-    )
-    print(response)
-
-    #print(response2)
-    for r in response['Datapoints']:
-        count = (r['Sum'])
-
-    print("Count: ", count)
-    return count
-
-# def get_widget():
-#     response = client.get_metric_statistics(
-        
-#     )
-
-#     return response
-#     {
-#         "width": 600,
-#         "height": 395,
-#         "metrics": [
-#             ["AWS/EC2", "CPUUtilization", "InstanceId",
-#                 "i-01234567890123456", {"stat": "Average"}]
-#         ],
-#         "period": 300,
-#         "stacked": false,
-#         "yAxis": {
-#             "left": {
-#                 "min": 0.1,
-#                 "max": 1
-#             },
-#             "right": {
-#                 "min": 0
-#             }
-#         },
-#         "title": "CPU",
-#         "annotations": {
-#             "horizontal": [
-#                 {
-#                     "color": "#ff6961",
-#                     "label": "Troublethresholdstart",
-#                     "fill": "above",
-#                     "value": 0.5
-#                 }
-#             ],
-#             "vertical": [
-#                 {
-#                     "visible": true,
-#                     "color": "#9467bd",
-#                     "label": "Bugfixdeployed",
-#                     "value": "2018-11-19T07:25:26Z",
-#                     "fill": "after"
-#                 }
-#             ]
-#         },
-#         "view": "timeSeries"
-#     }
-
-def get_widgets():
-
-    metrics = dict()
-
-    metrics['AWS/EC2'] = [
-        "CPUUtilization",
-        "NetworkPacketsIn",
-        "NetworkPacketsOut"
-    ]
-    metrics['AWS/ApplicationELB'] = [
-        "RequestCount",
-    ]
-
-    instanceIdsDict = dict()
-    instanceIdsDict['M4'] = os.environ['M4'].split(',')
-    instanceIdsDict['T2'] = os.environ['T2'].split(',')
-    # instanceIdsDict['M4'] = [
-    #     "i-085dd8a17d3dc4e23",
-    #     "i-07e7e50b21e71fa00",
-    #     "i-02bc697b26af185b6",
-    #     "i-0b25584b9b392d6b6",
-    #     "i-0fcadd0991e694051"
-    # ]
-    # "i-085dd8a17d3dc4e23", "i-07e7e50b21e71fa00", "i-02bc697b26af185b6", "i-0b25584b9b392d6b6","i-0fcadd0991e694051"
-    # instanceIdsDict['T2'] = [
-    #     "i-01d73f88f64dc235f", "i-027d5a4e5aa29d276", "i-04a41a2b1d8e253a0", "i-063353a2865953686"
-    # ]
-
-    colors = ['#0000FF', '#FF0000']
-
-    for metric in metrics['AWS/EC2']:
-        json = '{"metrics": ['
-
-        for instanceGroupNumber, (instanceGroup, instanceIds) in enumerate(instanceIdsDict.items()):
-            for index, instanceId in enumerate(instanceIds):
-                json += f'[ \
-                    "AWS/EC2", \
-                    "{metric}", \
-                    "InstanceId", "{instanceId}", \
-                    {{ "stat": "Average", "label": "{instanceGroup}_{index}", "period": 300, "color": "{colors[instanceGroupNumber]}"}}]'
-                json += ','
-
-        json = json[:-1]
-        json += ']}'
-
-        response = client.get_metric_widget_image(MetricWidget=json)
-
-        with open(f'{metric}.png', 'wb') as f:
-            f.write(response["MetricWidgetImage"])
-
-    for metric in metrics['AWS/ApplicationELB']:
-        json = '{"metrics": ['
-
-        for instanceGroupNumber, (instanceGroup, instanceIds) in enumerate(instanceIdsDict.items()):
-            for index, instanceId in enumerate(instanceIds):
-                json += f'[ \
-                    "AWS/ApplicationELB", \
-                    "{metric}", \
-                    "TargetGroup", "targetgroup/M4-instances/eef1ea1f0cde16ce", \
-                    "LoadBalancer", "app/load-balancer/d5bda477a4d5bc67", \
-                    {{ "stat": "SampleCount", "label": "{instanceGroup}_{index}", "period": 300, "color": "{colors[instanceGroupNumber]}"}}]'
-                json += ','
-
-        json = json[:-1]
-        json += ']}'
-
-        response = client.get_metric_widget_image(MetricWidget=json)
-
-        with open(f'{metric}.png', 'wb') as f:
-            f.write(response["MetricWidgetImage"])
-
 if __name__ == '__main__':
-    # load_balancer = os.popen('terraform output --raw load_balancer_arn_suffix').read()
-    # cluster1 = os.popen('terraform output --raw M4_group_arn_suffix').read()
-    # cluster2 = os.popen('terraform output --raw T2_group_arn_suffix').read()
-
-    # load_balancer = "app/load-balancer/dfd7de50da537297"
-    # cluster1 = "targetgroup/M4-instances/d9cca333fc82aa43"
-    # cluster2 = "targetgroup/T2-instances/1c4d5351a9b4c048"
-
     time.sleep(60)
-
     load_balancer = os.environ['load_balancer']
     cluster1 = os.environ['cluster1']
     cluster2 = os.environ['cluster2']
@@ -276,5 +111,3 @@ if __name__ == '__main__':
 
     benchmark = tabulate([cluster1_data, cluster2_data, total_data], headers=headers)
     print(benchmark)
-
-    # get_widgets()
