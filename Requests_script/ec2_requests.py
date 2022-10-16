@@ -4,7 +4,6 @@ import threading
 import time
 import os
 
-
 def thread1_requests(url, headers):
     session = FuturesSession()
     for _ in range(1000):
@@ -13,7 +12,6 @@ def thread1_requests(url, headers):
 
 def thread2_requests(url, headers):
     session = FuturesSession()
-
     for _ in range(500):
         session.get(url, headers=headers)
 
@@ -26,17 +24,19 @@ def thread2_requests(url, headers):
 if __name__ == '__main__':
     time.sleep(30)
 
+    # The URL is passed as an environment variable when running the script.sh. It's the ALB DNS name that is outputted from main.tf
     url = "http://" + os.environ['url']
     headers = {"content-type": "application/json"}
 
     requests1 = threading.Thread(target=thread1_requests, args=(url + "/cluster1", headers))
     requests2 = threading.Thread(target=thread2_requests, args=(url + "/cluster2", headers))
 
+    # Start the requests thread
     requests1.start()
     requests2.start()
 
-    requests1.join()
-    requests2.join()
+    requests1.join() # Wait for termination of requests1 thread
+    requests2.join() # Wait for termination of requests2 thread
 
     if os.environ['invert']:
         requests1 = threading.Thread(target=thread1_requests, args=(url + "/cluster2", headers))
