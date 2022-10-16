@@ -5,12 +5,22 @@ import time
 import os
 
 def thread1_requests(url, headers):
+    """
+    thread1_requests    is a function that sends 1000 requests to the given url asynchronously
+    :url:               The url where the requests are sent (with ALB DNS name)
+    :headers:           Headers sent with the requests
+    """
     session = FuturesSession()
     for _ in range(1000):
         session.get(url, headers=headers)
 
 
 def thread2_requests(url, headers):
+    """
+    thread2_requests    is a function that sends 1500 requests to the given url asynchronously
+    :url:               The url where the requests are sent (with ALB DNS name)
+    :headers:           Headers sent with the requests
+    """
     session = FuturesSession()
     for _ in range(500):
         session.get(url, headers=headers)
@@ -22,6 +32,7 @@ def thread2_requests(url, headers):
     
 
 if __name__ == '__main__':
+    # Wait 30 seconds to give time to all the instances to be created
     time.sleep(30)
 
     # The URL is passed as an environment variable when running the script.sh. It's the ALB DNS name that is outputted from main.tf
