@@ -7,6 +7,7 @@ export AWS_SECRET_ACCESS_KEY="$2"
 export AWS_SESSION_TOKEN="$3"
 
 # testing codespace
+# testing codespace 2
 
 
 ################################
